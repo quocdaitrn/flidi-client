@@ -1,0 +1,53 @@
+.home-banner{
+    background-size: cover;
+    min-height: 700px;
+    background: url('/images/slider.jpg') 
+}
+.slider-title_box {
+    text-align: center;
+}
+h1.title-banner{
+    font-size: 42px;
+    color: #fff;
+    font-weight: 300;
+}
+.slider-content_wrap h5 {
+    color: #a0a0a0;
+    font-weight: 400;
+    margin: 24px 0;
+    font-size: 25px;
+
+}
+.btn-group {
+    width: 100%;
+}
+.btn-group1 {
+    padding: 18px;
+    width: 52%;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border: none;
+}
+.btn-group2 {
+    position: relative;
+    padding: 18px;
+    width: 25%;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: 1px solid #ccc;
+}
+.btn-form {
+    font-weight: 400;
+    font-size: 18px;
+    padding: 15px;
+    width: 20%;
+    background: #ff3a6d;
+    color: #ffffff;
+    border: none;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+select.select-location-banner{
+    border-radius:0px;
+}

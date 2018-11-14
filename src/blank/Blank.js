@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
+import Banner from './partials/Banner';
+import './Blank.css';
 
 class Blank extends Component {
     render() {
         return (
-            <div>
-                <h1 className="title">
-                    Hello
-                </h1>
-                <div className="desc">
-                    This page for test.
-                </div>
-            </div>
+            <Banner key="banner" onEnterChange={this.onEnterChange} />
         );
     }
 }

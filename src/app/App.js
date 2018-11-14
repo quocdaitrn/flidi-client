@@ -99,7 +99,6 @@ class App extends Component {
                     onLogout={this.handleLogout} />
 
                 <Content className="app-content">
-                    <div className="container">
                         <Switch>
                             <Route exact path="/" render={(props) => <Blank />}></Route>
                             <Route path="/login"
@@ -111,7 +110,6 @@ class App extends Component {
                             </Route>
                             <Route component={NotFound}></Route>
                         </Switch>
-                    </div>
                 </Content>
             </Layout>
         );
