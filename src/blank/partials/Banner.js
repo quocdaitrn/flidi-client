@@ -2,16 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 
-function typeFunc(a) {
-  if (a.key === 'line') {
-    return 'right';
-  } else if (a.key === 'button') {
-    return 'bottom';
-  }
-  return 'left';
-}
-
-export default function Banner({ onEnterChange }) {
+export default function Banner() {
   return (
     <section class="slider home-banner d-flex align-items-center">
         <div class="container">
@@ -30,7 +21,7 @@ export default function Banner({ onEnterChange }) {
                             <div class="col-md-10">
                                 <form class="form-wrap mt-4">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <input type="text" placeholder="What are your looking for?" class="btn-group1"/>
+                                        <input type="text" placeholder="Bạn muốn đi đâu?" class="btn-group1"/>
                                         <select class="btn-group2 select-location-banner">
 											<option value=''>Tất cả</option>
 											<option value="hcm">Hồ Chí Minh</option>
@@ -40,9 +31,6 @@ export default function Banner({ onEnterChange }) {
                                         <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
                                     </div>
                                 </form>
-                                <div class="slider-link">
-                                    <a href="#">Browse Popular</a><span>or</span> <a href="#">Recently Addred</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -52,6 +40,3 @@ export default function Banner({ onEnterChange }) {
     </section>
   );
 }
-Banner.propTypes = {
-  onEnterChange: PropTypes.func,
-};
