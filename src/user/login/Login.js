@@ -3,31 +3,70 @@ import { login } from '../../util/APIUtils';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../constants';
-
-import { Form, Input, Button, Icon, notification } from 'antd';
-
+import {AppContext}  from "../../app/context";
+import { Form, Input, Button, Icon, notification ,Modal} from 'antd';
 const FormItem = Form.Item;
 
 class Login extends Component {
+    constructor(props){
+        super(props);
+    }
+    state = {
+        visible:false,
+        showModal:()=>{
+            this.setState({
+                visible: true,
+              });
+        },
+    };
     render() {
         const AntWrappedLoginForm = Form.create()(LoginForm)
+        console.log(this.state);
         return (
-            <div className="login-container">
-                <h1 className="page-title">Login</h1>
-                <div className="login-content">
+            <AppContext.Provider value={this.state}>
+                <Modal
+                            title="Đăng nhập"
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                            >
                     <AntWrappedLoginForm onLogin={this.props.onLogin} />
-                </div>
-            </div>
+                </Modal>
+            </AppContext.Provider>
         );
     }
-}
+    
 
+    showModal = () => {
+        this.setState({
+          visible: true,
+        });
+      }
+    
+      handleOk = (e) => {
+        console.log(e);
+        this.setState({
+          visible: false,
+        });
+      }
+    
+      handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+          visible: false,
+        });
+      }
+
+}
+Login.contextType = AppContext;
 class LoginForm extends Component {
+    state = { visible: true }
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    
     handleSubmit(event) {
         event.preventDefault();   
         this.props.form.validateFields((err, values) => {

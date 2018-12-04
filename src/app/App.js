@@ -94,6 +94,7 @@ class App extends Component {
         }
         return (
             <Layout className="app-container">
+                <Login></Login>
                 <AppHeader isAuthenticated={this.state.isAuthenticated}
                     currentUser={this.state.currentUser}
                     onLogout={this.handleLogout} />

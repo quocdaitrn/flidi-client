@@ -5,10 +5,14 @@ import {
 } from 'react-router-dom';
 import './AppHeader.css';
 import loginIcon from '../logo.svg';
+import {AppContext}  from "../app/context";
 import { Layout, Menu, Dropdown, Icon } from 'antd';
 const Header = Layout.Header;
 
 class AppHeader extends Component {
+    showModalLogin = ()=>{
+        alert(1);
+    };
     constructor(props) {
         super(props);
         this.handleMenuClick = this.handleMenuClick.bind(this);
@@ -17,6 +21,9 @@ class AppHeader extends Component {
     handleMenuClick({ key }) {
         if (key === "logout") {
             this.props.onLogout();
+        }
+        if(key==="login"){
+            this.showModalLogin();
         }
     }
 
@@ -37,8 +44,8 @@ class AppHeader extends Component {
             ];
         } else {
             menuItems = [
-                <Menu.Item key="/login">
-                    <Link to="/login">Login</Link>
+                <Menu.Item onClick={()=>{this.showModalLogin()}} key="login">
+                Login
                 </Menu.Item>,
                 <Menu.Item key="/signup">
                     <Link to="/signup">Signup</Link>
@@ -47,20 +54,26 @@ class AppHeader extends Component {
         }
 
         return (
-            <Header className="app-header">
-                <div className="container">
-                    <div className="app-title" >
-                        <Link to="/">Flidi</Link>
+            <AppContext.Consumer>
+                {({visible, showModal}) => {
+                    this.showModalLogin = showModal;
+                    showModal();
+                    return (
+                <Header className="app-header">
+                    <div className="container">
+                        <div className="app-title" >
+                            <Link to="/">Flidi</Link>
+                        </div>
+                        <Menu
+                            className="app-menu"
+                            mode="horizontal"
+                            selectedKeys={[this.props.location.pathname]}
+                            style={{ lineHeight: '64px' }} >
+                            {menuItems}
+                        </Menu>
                     </div>
-                    <Menu
-                        className="app-menu"
-                        mode="horizontal"
-                        selectedKeys={[this.props.location.pathname]}
-                        style={{ lineHeight: '64px' }} >
-                        {menuItems}
-                    </Menu>
-                </div>
-            </Header>
+                    </Header>)}}
+            </AppContext.Consumer>
         );
     }
 }

@@ -4,31 +4,31 @@ import { Icon } from 'antd';
 
 export default function Banner() {
   return (
-    <section class="slider home-banner d-flex align-items-center">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-12">
-                    <div class="slider-title_box">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="slider-content_wrap">
-                                    <h1 class="title-banner">Tìm hiểu thực tế các chuyến đi</h1>
+    <section className="slider home-banner d-flex align-items-center">
+        <div className="container">
+            <div className="row d-flex justify-content-center">
+                <div className="col-md-12">
+                    <div className="slider-title_box">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <div className="slider-content_wrap">
+                                    <h1 className="title-banner">Tìm hiểu thực tế các chuyến đi</h1>
                                     <h5>Tại 63 tỉnh thành trên cả nước</h5>
                                 </div>
                             </div>
                         </div>
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-10">
-                                <form class="form-wrap mt-4">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <input type="text" placeholder="Bạn muốn đi đâu?" class="btn-group1"/>
-                                        <select class="btn-group2 select-location-banner">
+                        <div className="row d-flex justify-content-center">
+                            <div className="col-md-10">
+                                <form className="form-wrap mt-4">
+                                    <div className="btn-group" role="group" aria-label="Basic example">
+                                        <input type="text" placeholder="Bạn muốn đi đâu?" className="btn-group1"/>
+                                        <select className="btn-group2 select-location-banner">
 											<option value=''>Tất cả</option>
 											<option value="hcm">Hồ Chí Minh</option>
 											<option value="hn">Hà Nội</option>
 											<option value="dn">Đà Nẵng</option>
 										</select>
-                                        <button type="submit" class="btn-form"><span class="icon-magnifier search-icon"></span>SEARCH<i class="pe-7s-angle-right"></i></button>
+                                        <button type="submit" className="btn-form"><span className="icon-magnifier search-icon"></span>SEARCH<i className="pe-7s-angle-right"></i></button>
                                     </div>
                                 </form>
                             </div>
