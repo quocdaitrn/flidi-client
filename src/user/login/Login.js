@@ -3,62 +3,21 @@ import { login } from '../../util/APIUtils';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import { ACCESS_TOKEN } from '../../constants';
-import {AppContext}  from "../../app/context";
-import { Form, Input, Button, Icon, notification ,Modal} from 'antd';
+import { Form, Input, Button, Icon, notification} from 'antd';
 const FormItem = Form.Item;
 
 class Login extends Component {
     constructor(props){
         super(props);
     }
-    state = {
-        visible:false,
-        showModal:()=>{
-            this.setState({
-                visible: true,
-              });
-        },
-    };
     render() {
         const AntWrappedLoginForm = Form.create()(LoginForm)
         console.log(this.state);
         return (
-            <AppContext.Provider value={this.state}>
-                <Modal
-                            title="Đăng nhập"
-                            visible={this.state.visible}
-                            onOk={this.handleOk}
-                            onCancel={this.handleCancel}
-                            >
-                    <AntWrappedLoginForm onLogin={this.props.onLogin} />
-                </Modal>
-            </AppContext.Provider>
+                <AntWrappedLoginForm onLogin={this.props.onLogin} />
         );
     }
-    
-
-    showModal = () => {
-        this.setState({
-          visible: true,
-        });
-      }
-    
-      handleOk = (e) => {
-        console.log(e);
-        this.setState({
-          visible: false,
-        });
-      }
-    
-      handleCancel = (e) => {
-        console.log(e);
-        this.setState({
-          visible: false,
-        });
-      }
-
 }
-Login.contextType = AppContext;
 class LoginForm extends Component {
     state = { visible: true }
     constructor(props) {

@@ -9,9 +9,11 @@ import {AppContext}  from "../app/context";
 import { Layout, Menu, Dropdown, Icon } from 'antd';
 const Header = Layout.Header;
 
+
 class AppHeader extends Component {
     showModalLogin = ()=>{
-        alert(1);
+    };
+    showModalSignup = ()=>{
     };
     constructor(props) {
         super(props);
@@ -45,24 +47,24 @@ class AppHeader extends Component {
         } else {
             menuItems = [
                 <Menu.Item onClick={()=>{this.showModalLogin()}} key="login">
-                Login
+                    Login
                 </Menu.Item>,
-                <Menu.Item key="/signup">
-                    <Link to="/signup">Signup</Link>
+                <Menu.Item onClick={()=>{this.showModalSignup()}} key="signup">
+                    Signup
                 </Menu.Item>
             ];
         }
 
         return (
             <AppContext.Consumer>
-                {({visible, showModal}) => {
-                    this.showModalLogin = showModal;
-                    showModal();
+                {({showModalLogin,showModalSignup}) => {
+                    this.showModalLogin = showModalLogin;
+                    this.showModalSignup = showModalSignup;
                     return (
                 <Header className="app-header">
                     <div className="container">
                         <div className="app-title" >
-                            <Link to="/">Flidi</Link>
+                            <Link to="/"><Icon type="environment" />Flidi</Link>
                         </div>
                         <Menu
                             className="app-menu"
@@ -78,6 +80,7 @@ class AppHeader extends Component {
     }
 }
 
+AppHeader.contextType = AppContext;
 function ProfileDropdownMenu(props) {
     const dropdownMenu = (
         <Menu onClick={props.handleMenuClick} className="profile-dropdown-menu">

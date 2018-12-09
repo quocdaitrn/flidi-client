@@ -97,9 +97,6 @@ class Signup extends Component {
 
     render() {
         return (
-            <div className="signup-container">
-                <h1 className="page-title">Sign Up</h1>
-                <div className="signup-content">
                     <Form onSubmit={this.handleSubmit} className="signup-form">
                         <FormItem 
                             label="First Name"
@@ -175,8 +172,7 @@ class Signup extends Component {
                             Already registed? <Link to="/login">Login now!</Link>
                         </FormItem>
                     </Form>
-                </div>
-            </div>
+
         );
     }
 

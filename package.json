@@ -4,8 +4,12 @@
     "private": true,
     "dependencies": {
         "antd": "^3.8.0",
+        "google-map-react": "^1.1.1",
         "react": "^16.4.2",
+        "react-addons": "^0.9.1-deprecated",
         "react-dom": "^16.4.2",
+        "react-google-maps": "^9.4.5",
+        "react-pure-render": "github:gaearon/react-pure-render",
         "react-router-dom": "^4.3.1",
         "react-scripts": "1.1.4"
     },

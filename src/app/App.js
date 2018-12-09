@@ -13,12 +13,15 @@ import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
 import AppHeader from '../common/AppHeader';
+import AppFooter from '../common/AppFooter';
+import Maps from '../maps/Maps';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import PrivateRoute from '../common/PrivateRoute';
 
-import { Layout, notification } from 'antd';
+import { Layout, notification,Modal } from 'antd';
 import Blank from '../blank/Blank';
+import {AppContext}  from "./context";
 
 const { Content } = Layout;
 
@@ -28,7 +31,13 @@ class App extends Component {
         this.state = {
             currentUser: null,
             isAuthenticated: false,
-            isLoading: false
+            isLoading: false,
+            loginVisible:false,
+            signupVisible:false,
+            showModalLogin: this.showModalLogin,
+            hideModalLogin: this.hideModalLogin,
+            showModalSignup: this.showModalSignup,
+            hideModalSignup: this.hideModalSignup
         }
         this.handleLogout = this.handleLogout.bind(this);
         this.loadCurrentUser = this.loadCurrentUser.bind(this);
@@ -38,6 +47,30 @@ class App extends Component {
             placement: 'topRight',
             top: 70,
             duration: 3,
+        });
+    }
+
+    showModalLogin = () => {
+        this.setState({
+            loginVisible: true,
+        });
+    }
+
+    hideModalLogin = ()=>{
+        this.setState({
+            loginVisible: false,
+        });
+    }
+
+    showModalSignup = () => {
+        this.setState({
+            signupVisible: true,
+        });
+    }
+
+    hideModalSignup = ()=>{
+        this.setState({
+            signupVisible: false,
         });
     }
 
@@ -94,7 +127,23 @@ class App extends Component {
         }
         return (
             <Layout className="app-container">
-                <Login></Login>
+             <AppContext.Provider value={this.state}>
+                <Modal
+                    title="Đăng nhập"
+                    visible={this.state.loginVisible}
+                    onCancel={this.hideModalLogin}
+                    footer={null}
+                    >
+                    <Login></Login>
+                </Modal>
+                <Modal
+                    title="Đăng ký"
+                    visible={this.state.signupVisible}
+                    onCancel={this.hideModalSignup}
+                    footer={null}
+                    >
+                    <Signup></Signup>
+                </Modal>
                 <AppHeader isAuthenticated={this.state.isAuthenticated}
                     currentUser={this.state.currentUser}
                     onLogout={this.handleLogout} />
@@ -105,6 +154,9 @@ class App extends Component {
                             <Route path="/login"
                                 render={(props) => <Login onLogin={this.handleLogin} {...props} />}>
                             </Route>
+                            <Route path="/maps"
+                                render={(props) => <Maps {...props} />}>
+                            </Route>
                             <Route path="/signup" component={Signup}></Route>
                             <Route path="/users/:username"
                                 render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}>
@@ -112,6 +164,8 @@ class App extends Component {
                             <Route component={NotFound}></Route>
                         </Switch>
                 </Content>
+                <AppFooter></AppFooter>
+                </AppContext.Provider>
             </Layout>
         );
     }

@@ -19,7 +19,7 @@ export default function Banner() {
                         </div>
                         <div className="row d-flex justify-content-center">
                             <div className="col-md-10">
-                                <form className="form-wrap mt-4">
+                                <form className="form-wrap mt-4" action="/maps">
                                     <div className="btn-group" role="group" aria-label="Basic example">
                                         <input type="text" placeholder="Bạn muốn đi đâu?" className="btn-group1"/>
                                         <select className="btn-group2 select-location-banner">
