@@ -1,12 +1,20 @@
+import React from 'react';
 import {
-    Skeleton, Switch, Card, Icon, Avatar,
+     Switch, Card, Icon, Avatar,Rate
   } from 'antd';
-  
+  import { Skeleton } from 'antd';
+  import {
+    Link,
+    withRouter
+} from 'react-router-dom';
   const { Meta } = Card;
-  
   class SidebarItem extends React.Component {
     state = {
-      loading: true,
+      loading: false,
+    }
+
+    constructor(props){
+        super(props);
     }
   
     onChange = (checked) => {
@@ -15,33 +23,39 @@ import {
   
     render() {
       const { loading } = this.state;
-  
+      var item = this.props.data;
       return (
         <div>
-          <Switch checked={!loading} onChange={this.onChange} />
-  
-          <Card style={{ width: 300, marginTop: 16 }} loading={loading}>
-            <Meta
-              avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              title="Card title"
-              description="This is the description"
-            />
-          </Card>
-  
           <Card
-            style={{ width: 300, marginTop: 16 }}
-            actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-          >
-            <Skeleton loading={loading} avatar active>
-              <Meta
-                avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                title="Card title"
-                description="This is the description"
-              />
-            </Skeleton>
-          </Card>
+          hoverable ={true}
+          style={{ width: 400, marginTop: 16 }}
+          actions={[
+            <div>
+                <span>12</span>
+                <Icon type="message" />
+            </div>,
+           <Icon type="picture" />,
+           <Icon type="user-add" />
+        ]}
+        >
+          <Skeleton loading={loading} avatar active>
+            <Meta
+              avatar={<Avatar size={'large'}  shape={'square'} src={item.thumb} />}
+              title={
+                    <Link to={"/place/"+item.id}>{item.name}</Link>
+                }
+              description={
+                    <div>
+                        <div>{item.address}</div>
+                        <div>{item.des}</div>
+                        <Rate disabled allowHalf defaultValue={item.rating} />
+                  </div>
+                }
+            />
+          </Skeleton>
+        </Card>
         </div>
       );
     }
   }
-  export default  SidebarItem ;
+  export default withRouter(SidebarItem);

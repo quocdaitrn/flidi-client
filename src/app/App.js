@@ -22,6 +22,7 @@ import PrivateRoute from '../common/PrivateRoute';
 import { Layout, notification,Modal } from 'antd';
 import Blank from '../blank/Blank';
 import {AppContext}  from "./context";
+import Detail from '../place/Detail';
 
 const { Content } = Layout;
 
@@ -156,6 +157,9 @@ class App extends Component {
                             </Route>
                             <Route path="/maps"
                                 render={(props) => <Maps {...props} />}>
+                            </Route>
+                            <Route path="/place/:place_id"
+                                render={(props) => <Detail {...props} />}>
                             </Route>
                             <Route path="/signup" component={Signup}></Route>
                             <Route path="/users/:username"
