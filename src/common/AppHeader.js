@@ -5,21 +5,10 @@ import {
 } from 'react-router-dom';
 import './AppHeader.css';
 import {AppContext}  from "../app/context";
-import { Layout, Menu, Dropdown, Icon,Input,Form,Row, Col,Select } from 'antd';
-import ProvinceRepository from '../repositories/ProvinceRepository';
+import { Layout, Menu, Dropdown, Icon,Row, Col,Button} from 'antd';
+import SearchBox from './SearchBox';
 
 const Header = Layout.Header;
-const Search = Input.Search;
-const FormItem = Form.Item;
-const Option = Select.Option;
-const ProvinceList = ProvinceRepository.List;
-const selectAfter = (
-    <Select defaultValue="Hồ Chí Minh" style={{ width: 124 }}>
-        {ProvinceList.map((item)=>{
-            return <Option value={item.id}>{item.name}</Option>
-        })}
-    </Select>
-  );
 class AppHeader extends Component {
     showModalLogin = ()=>{
     };
@@ -56,11 +45,15 @@ class AppHeader extends Component {
             ];
         } else {
             menuItems = [
-                <Menu.Item onClick={()=>{this.showModalLogin()}} key="login">
-                    Login
+                <Menu.Item style={{borderBottom:'0px solid red'}} onClick={()=>{this.showModalLogin()}} key="login">
+                     <Button type="primary">
+                        Đăng nhập
+                    </Button>
                 </Menu.Item>,
-                <Menu.Item onClick={()=>{this.showModalSignup()}} key="signup">
-                    Signup
+                <Menu.Item style={{borderBottom:'0px solid red'}} onClick={()=>{this.showModalSignup()}} key="signup">
+                    <Button  type="primary">
+                        Đăng ký
+                    </Button>
                 </Menu.Item>
             ];
         }
@@ -76,23 +69,17 @@ class AppHeader extends Component {
                     <Row>
                         <Col span={4}>
                         <div className="app-title" >
-                            <Link to="/"><Icon type="environment" />Flidi</Link>
+                            <Link to="/"><Icon style={{fontSize:25,marginRight:4}} type="environment" /><span>Flidi</span></Link>
                         </div>
                         </Col>
                         <Col span={10}>
-                            <Search
-                                placeholder="Bạn muốn đi đâu?"
-                                onSearch={value => console.log(value)}
-                                enterButton
-                                style={{display:'inline-block'}}
-                                addonBefore={selectAfter}
-                                    />
+                            <SearchBox></SearchBox>
                         </Col>
                         <Menu
                             className="app-menu"
                             mode="horizontal"
                             selectedKeys={[this.props.location.pathname]}
-                            style={{ lineHeight: '64px' }} >
+                            style={{ lineHeight: '62px',borderBottom:'0px solid red'}} >
                             {menuItems}
                         </Menu>
                         </Row>

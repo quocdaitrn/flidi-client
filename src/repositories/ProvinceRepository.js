@@ -7,4 +7,5 @@ ProvinceRepository.List = [
         {id:5,name:'Hội An'},
         {id:6,name:'Huế'}
     ];
+
 export default ProvinceRepository;

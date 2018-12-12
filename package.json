@@ -5,6 +5,7 @@
     "dependencies": {
         "antd": "^3.11.0",
         "google-map-react": "^1.1.1",
+        "query-string": "^6.2.0",
         "react": "^16.4.2",
         "react-addons": "^0.9.1-deprecated",
         "react-dom": "^16.4.2",

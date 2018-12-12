@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import SearchBox from '../../common/SearchBox';
 
 export default function Banner() {
   return (
@@ -18,19 +17,10 @@ export default function Banner() {
                             </div>
                         </div>
                         <div className="row d-flex justify-content-center">
-                            <div className="col-md-10">
-                                <form className="form-wrap mt-4" action="/maps">
-                                    <div className="btn-group" role="group" aria-label="Basic example">
-                                        <input type="text" placeholder="Bạn muốn đi đâu?" className="btn-group1"/>
-                                        <select className="btn-group2 select-location-banner">
-											<option value=''>Tất cả</option>
-											<option value="hcm">Hồ Chí Minh</option>
-											<option value="hn">Hà Nội</option>
-											<option value="dn">Đà Nẵng</option>
-										</select>
-                                        <button type="submit" className="btn-form"><span className="icon-magnifier search-icon"></span>SEARCH<i className="pe-7s-angle-right"></i></button>
-                                    </div>
-                                </form>
+                            <div className="col-md-9">
+                                <div className="btn-group" role="group" aria-label="Basic example">
+                                    <SearchBox position={'banner'}></SearchBox>
+                                </div>
                             </div>
                         </div>
                     </div>
