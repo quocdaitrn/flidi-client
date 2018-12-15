@@ -1,15 +1,15 @@
 import React,{Component} from 'react'
 import { Card, Icon, Avatar } from 'antd';
 
-const { Meta } = Card;
+const { Meta, Carousel } = Card;
 class Item extends Component{
     render(){
         return<Card
-            style={{ width: 560,marginBottom:'100px'}}
+            style={{ width: 560}}
             cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
             actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
         >
-            <Meta
+        <Meta
             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
             title="Card title"
             description="This is the description"

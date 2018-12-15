@@ -7,7 +7,6 @@ import {
 
 const Search = Input.Search;
 const Option = Select.Option;
-const ProvinceList = ProvinceRepository.List;
 const queryString = require('query-string');
   
 class SearchBox extends Component{
@@ -15,11 +14,19 @@ class SearchBox extends Component{
     constructor(props){
         super(props);
     }
+    componentDidMount(){
+        ProvinceRepository.getList().then((res)=>{
+            this.setState({
+                ProvinceList:res.data
+            })
+        })
+    }
     query = {
 
     };
     state = {
-        province_id:1
+        province_id:1,
+        ProvinceList:[]
     }
 
     handleSearch(keyword){
@@ -33,6 +40,7 @@ class SearchBox extends Component{
 
     render(){
         this.query = queryString.parseUrl(window.location.href).query;
+        var ProvinceList = this.state.ProvinceList;
         var selectAfter = (
             <Select defaultValue={this.query.pid} onChange={(val)=>{this.setState({province_id:val})}} defaultValue="Hồ Chí Minh" style={{ width: 124 }}>
                 {ProvinceList.map((item,key)=>{

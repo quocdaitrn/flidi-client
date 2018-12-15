@@ -27,7 +27,7 @@ class  Item extends Component{
         console.log(this.props);
         return (
             <Marker
-                position={{ lat: this.props.data.lat, lng:this.props.data.lng }}
+                position={{ lat: this.props.data.latitude, lng:this.props.data.longitude }}
                 label={''}
                 onMouseOver={()=>this.hoverMakerHandle()}
             >
@@ -35,14 +35,14 @@ class  Item extends Component{
                     onMouseOver={()=>this.hoverMakerHandle()}
                     onMouseOut={()=>this.hoverOutMakerHandle()}
                     visible={this.state.visibleLabel}
-                    position={{ lat: this.props.data.lat, lng:this.props.data.lng}}
+                    position={{ lat: this.props.data.latitude, lng:this.props.data.longitude}}
                     labelAnchor={new google.maps.Point(0, 0)}
                     labelStyle={{backgroundColor: "yellow", fontSize: "32px", padding: "16px"}}
                 >
-                    <div>{this.props.data.name}</div>
+                    <div>{this.props.data.locationName}</div>
                 </MarkerWithLabel>
                 {<InfoWindow>
-                    <div style={{fontSize:'14px'}}>{this.props.data.name}</div>
+                    <div style={{fontSize:'14px'}}>{this.props.data.locationName}</div>
                 </InfoWindow>}
             </Marker> 
         )
