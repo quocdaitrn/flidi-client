@@ -1,9 +1,9 @@
 import React from 'react';
 import {
      Switch, Card, Icon, Avatar,Rate
-  } from 'antd';
-  import { Skeleton } from 'antd';
-  import {
+  }from 'antd';
+import { Skeleton } from 'antd';
+import {
     Link,
     withRouter
 } from 'react-router-dom';
@@ -31,11 +31,18 @@ import {
           style={{ width: 400, marginTop: 16 }}
           actions={[
             <div>
-                <span>12</span>
+                <span style={{marginRight:'3px'}}>12</span>
                 <Icon type="message" />
-            </div>,
-           <Icon type="picture" />,
-           <Icon type="user-add" />
+			</div>,
+			<div>
+				<span style={{marginRight:'3px'}}>20</span>
+				<Icon type="picture" />
+		   </div>
+		   ,
+		   <div>
+				<span style={{marginRight:'3px'}}>14</span>
+           		<Icon type="user-add" />
+		   </div>
         ]}
         >
           <Skeleton loading={loading} avatar active>

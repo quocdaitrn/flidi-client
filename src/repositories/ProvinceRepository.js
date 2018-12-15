@@ -5,7 +5,39 @@ ProvinceRepository.List = [
         {id:3,name:'Đà Lạt'},
         {id:4,name:'Đà Nẵng'},
         {id:5,name:'Hội An'},
-        {id:6,name:'Huế'}
+        {id:7,name:'Sapa'}
     ];
+ProvinceRepository.PopularLists = [
+    {
+        id:1,
+        name:'Hồ Chí Minh',
+        total:120,
+        image:'images/find-place1.jpg'
+    },
+    {
+        id:2,
+        name:'Hà Nội',
+        total:62,
+        image:'images/find-place2.jpg'
+    },
+    {
+        id:3,
+        name:'Đà Lạt',
+        total:94,
+        image:'images/find-place3.jpg'
+    },
+    {
+        id:4,
+        name:'Đà Nẵng',
+        total:30,
+        image:'images/find-place4.jpg'
+    },
+    {
+        id:5,
+        name:'Hội An',
+        total:40,
+        image:'images/find-place5.jpg'
+    }
+]
 
 export default ProvinceRepository;

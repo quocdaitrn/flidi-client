@@ -8,21 +8,16 @@ import {
 const Search = Input.Search;
 const Option = Select.Option;
 const ProvinceList = ProvinceRepository.List;
-
+const queryString = require('query-string');
   
 class SearchBox extends Component{
     position = 'header';
-    selectAfter = (
-        <Select onChange={(val)=>{this.setState({province_id:val})}} defaultValue="Hồ Chí Minh" style={{ width: 124 }}>
-            {ProvinceList.map((item,key)=>{
-                return <Option key={key} value={item.id}>{item.name}</Option>
-            })}
-        </Select>
-    );
     constructor(props){
         super(props);
-        console.log(this.props.match.params)
     }
+    query = {
+
+    };
     state = {
         province_id:1
     }
@@ -37,6 +32,14 @@ class SearchBox extends Component{
     }
 
     render(){
+        this.query = queryString.parseUrl(window.location.href).query;
+        var selectAfter = (
+            <Select defaultValue={this.query.pid} onChange={(val)=>{this.setState({province_id:val})}} defaultValue="Hồ Chí Minh" style={{ width: 124 }}>
+                {ProvinceList.map((item,key)=>{
+                    return <Option key={key} value={item.id}>{item.name}</Option>
+                })}
+            </Select>
+        );
         if(this.props.position=='banner'){
             return (<Search
                 size={'large'}
@@ -45,7 +48,7 @@ class SearchBox extends Component{
                 enterButton="Tìm kiếm"
                 className={'search-home'}
                 style={{display:'inline-block',verticalAlign:'middle'}}
-                addonBefore={this.selectAfter}
+                addonBefore={selectAfter}
             />
         )
         }
@@ -56,7 +59,7 @@ class SearchBox extends Component{
                 enterButton
                 className={'search-home'}
                 style={{display:'inline-block',verticalAlign:'middle'}}
-                addonBefore={this.selectAfter}
+                addonBefore={selectAfter}
             />
         )
         }
