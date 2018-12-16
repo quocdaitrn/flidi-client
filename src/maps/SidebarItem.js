@@ -28,7 +28,7 @@ import {
 		<div>
 		  <Card
 		  hoverable ={true}
-		  style={{ width: 400, marginTop: 16 }}
+		  style={{ width: this.props.width?this.props.width:400, marginTop: 16 }}
 		  actions={[
 			<div>
 				<span style={{marginRight:'3px'}}>12</span>
@@ -49,7 +49,7 @@ import {
 			<Meta
 			  avatar={<Avatar size={'large'}  shape={'square'} src={item.image} />}
 			  title={
-					<Link to={"/place/"+item.id}>{item.locationName}</Link>
+					<Link to={`/place/${item.province.id}/${item.id}`}>{item.name}</Link>
 				}
 			  description={
 					<div>

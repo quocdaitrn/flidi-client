@@ -45,7 +45,7 @@ class Maps extends Component{
     render(){
         const MyMapComponent = withScriptjs(withGoogleMap(props => {
             return <GoogleMap
-                defaultZoom={12}
+                defaultZoom={14}
                 defaultCenter={this.state.centerCoordinate}
             >
             {this.state.items.map(function(item,key){

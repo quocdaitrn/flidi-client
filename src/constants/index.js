@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'http://192.168.3.153:8080/api';
+export const API_BASE_URL = 'http://172.28.3.93:8080/api';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const NAME_MIN_LENGTH = 2;

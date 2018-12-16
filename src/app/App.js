@@ -83,6 +83,7 @@ class App extends Component {
             .then(response => {
                 this.setState({
                     currentUser: response,
+                    loginVisible:false,
                     isAuthenticated: true,
                     isLoading: false
                 });
@@ -126,6 +127,7 @@ class App extends Component {
         if (this.state.isLoading) {
             return <LoadingIndicator />
         }
+        console.log(this.state);
         return (
             <Layout className="app-container">
              <AppContext.Provider value={this.state}>
@@ -135,7 +137,7 @@ class App extends Component {
                     onCancel={this.hideModalLogin}
                     footer={null}
                     >
-                    <Login></Login>
+                    <Login onLogin={this.handleLogin} ></Login>
                 </Modal>
                 <Modal
                     title="Đăng ký"
@@ -158,7 +160,7 @@ class App extends Component {
                             <Route path="/maps"
                                 render={(props) => <Maps {...props} />}>
                             </Route>
-                            <Route path="/place/:place_id"
+                            <Route path="/place/:pid/:id"
                                 render={(props) => <Detail {...props} />}>
                             </Route>
                             <Route path="/signup" component={Signup}></Route>

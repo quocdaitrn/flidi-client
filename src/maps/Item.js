@@ -1,6 +1,11 @@
 /*global google*/ 
 import React, {Component} from 'react';
 import {Marker,InfoWindow} from "react-google-maps"
+import {
+	Link,
+	withRouter
+} from 'react-router-dom';
+
 const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
 class  Item extends Component{
     constructor(props){
@@ -23,6 +28,11 @@ class  Item extends Component{
        });
     }
 
+    clickHandle(){
+        var item = this.props.data;
+        this.props.history.push(`/place/${item.province_id}/${item.id}`);
+    }
+
     render(){
         console.log(this.props);
         return (
@@ -30,6 +40,7 @@ class  Item extends Component{
                 position={{ lat: this.props.data.latitude, lng:this.props.data.longitude }}
                 label={''}
                 onMouseOver={()=>this.hoverMakerHandle()}
+                onClick={()=>{this.clickHandle()}}
             >
                 <MarkerWithLabel
                     onMouseOver={()=>this.hoverMakerHandle()}
@@ -37,12 +48,12 @@ class  Item extends Component{
                     visible={this.state.visibleLabel}
                     position={{ lat: this.props.data.latitude, lng:this.props.data.longitude}}
                     labelAnchor={new google.maps.Point(0, 0)}
-                    labelStyle={{backgroundColor: "yellow", fontSize: "32px", padding: "16px"}}
+                    labelStyle={{backgroundColor: "#fff", fontSize: "15px", padding: "14px"}}
                 >
-                    <div>{this.props.data.locationName}</div>
+                    <div>{this.props.data.address}</div>
                 </MarkerWithLabel>
                 {<InfoWindow>
-                    <div style={{fontSize:'14px'}}>{this.props.data.locationName}</div>
+                    <div style={{fontSize:'14px'}}>{this.props.data.name}</div>
                 </InfoWindow>}
             </Marker> 
         )
