@@ -14,11 +14,3 @@ export const PASSWORD_MAX_LENGTH = 20;
 
 export const GOOGLE_MAPS_API_KEY = 'AIzaSyBnmfaj0H3KvSwNfuHIYaFQP35knMs3PCg';
 export const DEFAULT_PROVINCE = 1;
-export const FIREBASE_CONFIG = {
-    apiKey: "AIzaSyC8wTy7nK_4QCxz6hD7Ia2EfsIcYA9ryLQ",
-    authDomain: "api-project-814569024038.firebaseapp.com",
-    databaseURL: "https://api-project-814569024038.firebaseio.com",
-    projectId: "api-project-814569024038",
-    storageBucket: "api-project-814569024038.appspot.com",
-    messagingSenderId: "814569024038"
-};
