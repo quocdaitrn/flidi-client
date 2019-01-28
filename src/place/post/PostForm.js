@@ -65,7 +65,7 @@ const TextArea = Input.TextArea;
                 )}
                 </FormItem>
                 <Form>
-                    <UploadPhoto></UploadPhoto>
+                    <UploadPhoto action={'//jsonplaceholder.typicode.com/posts/'}></UploadPhoto>
                 </Form>
               <FormItem {...buttonItemLayout}>
                 <Button type="primary"><Icon type="form" /> Đăng bài</Button>

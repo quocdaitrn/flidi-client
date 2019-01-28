@@ -1,6 +1,10 @@
 import React,{Component} from 'react'
 import { Upload, Icon, Modal } from 'antd';
-
+import firebase from 'firebase';
+import {FIREBASE_CONFIG} from '../../constants/index';
+console.log(FIREBASE_CONFIG);
+firebase.initializeApp(FIREBASE_CONFIG);
+const storage = firebase.storage();
 class UploadPhoto extends React.Component {
   state = {
     previewVisible: false,
@@ -17,6 +21,17 @@ class UploadPhoto extends React.Component {
     });
   }
 
+  uploadFile(file,fileList){
+	console.log(file,fileList);
+	var storageRef = storage.ref('posts');
+	var ref = storageRef.child('mountains.jpg');
+	ref.put(file).then(function(snapshot) {
+		console.log(snapshot);
+	  console.log('Uploaded a blob or file!');
+	});
+	return false;
+  }
+
   handleChange = ({ fileList }) => this.setState({ fileList })
 
   render() {
@@ -30,9 +45,10 @@ class UploadPhoto extends React.Component {
     return (
       <div className="clearfix">
         <Upload
-          action="//jsonplaceholder.typicode.com/posts/"
           listType="picture-card"
-          fileList={fileList}
+		  fileList={fileList}
+		  beforeUpload={this.uploadFile}
+		  multiple={true}
           onPreview={this.handlePreview}
           onChange={this.handleChange}
         >
