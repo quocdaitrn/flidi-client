@@ -12,9 +12,12 @@ const TextArea = Input.TextArea;
 
 
   class PostForm extends React.Component {
+    uploader = React.createRef();
     handleSubmit = (e) => {
-      e.preventDefault();
-      this.props.form.validateFields((err, values) => {
+        e.preventDefault();
+        console.log(this.uploader.current.handleUpload());
+        return false;
+        this.props.form.validateFields((err, values) => {
         if (!err) {
           console.log('Received values of form: ', values);
         }
@@ -39,20 +42,29 @@ const TextArea = Input.TextArea;
           wrapperCol: { span: 14, offset: 4 },
         } : null;
         const { getFieldDecorator } = this.props.form;
+        console.log(getFieldDecorator);
         return (
           <div>
-            <Form layout={formLayout}>
+            <Form layout={formLayout} onSubmit={this.handleSubmit}>
               <FormItem
                 label="Tiêu đề"
                 {...formItemLayout}
               >
-                <Input placeholder="Tiêu đề" />
+               {getFieldDecorator('title', {
+                    rules: [{ required: true, message: 'Vui lòng nhập tiêu đề' }],
+                })(
+                    <Input placeholder="Tiêu đề" />
+                )}
               </FormItem>
               <FormItem
                 label="Nội dung"
                 {...formItemLayout}
               >
-                <TextArea rows={5} placeholder="Cảm nghĩ của bạn về nơi này" />
+              {getFieldDecorator('content', {
+                    rules: [{ required: true, message: 'Vui lòng nhập nội dung' }],
+                })(
+                    <TextArea rows={5} placeholder="Cảm nghĩ của bạn về nơi này" />
+                )}
               </FormItem>
               <FormItem
                 {...formItemLayout}
@@ -65,10 +77,10 @@ const TextArea = Input.TextArea;
                 )}
                 </FormItem>
                 <Form>
-                    <UploadPhoto action={'//jsonplaceholder.typicode.com/posts/'}></UploadPhoto>
+                    <UploadPhoto ref={this.uploader} action={'//jsonplaceholder.typicode.com/posts/'}></UploadPhoto>
                 </Form>
               <FormItem {...buttonItemLayout}>
-                <Button type="primary"><Icon type="form" /> Đăng bài</Button>
+                <Button type="primary"  htmlType="submit"><Icon type="form" /> Đăng bài</Button>
               </FormItem>
             </Form>
           </div>
