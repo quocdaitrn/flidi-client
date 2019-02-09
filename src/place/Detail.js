@@ -111,7 +111,7 @@ class Detail extends Component{
                         width={650}
                         onCancel={this.hidePostForm.bind(this)}
                     >
-                        <PostForm></PostForm>
+                        <PostForm location_id={this.props.match.params.id}></PostForm>
                     </Modal>
                 <Card
                     height={350}

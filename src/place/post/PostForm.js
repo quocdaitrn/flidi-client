@@ -1,27 +1,54 @@
 import React,{Component} from 'react';
 import {
-    Form, Select, InputNumber, Switch, Radio,
-    Slider, Button, Upload, Icon, Rate,Input
+    Form, Button, Icon, Rate,Input
   } from 'antd';
 import UploadPhoto from './UploadPhoto';
+import axios from 'axios';
+import {ADMIN_URL} from '../../config';
+import { getCurrentUser } from '../../util/APIUtils';
 const FormItem = Form.Item;
-const Option = Select.Option;
-const RadioButton = Radio.Button;
-const RadioGroup = Radio.Group;
 const TextArea = Input.TextArea;
 
 
-  class PostForm extends React.Component {
+  class PostForm extends Component {
     uploader = React.createRef();
+    user_id = 1;
+    constructor(props){
+        console.log(props);
+        super(props);
+        getCurrentUser()
+            .then(response => {
+                console.log(response);
+                this.user_id = response.id;
+            }).catch(error => {
+        });
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
-        console.log(this.uploader.current.handleUpload());
-        return false;
+        const photos = this.uploader.current.getPhotos();
         this.props.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
-      });
+            if (!err) {
+                const formData = new FormData();
+                photos.forEach((file) => {
+                    formData.append('files[]', file.originFileObj);
+                });
+                for(var key in values){
+                    formData.append(key,values[key]);
+                }
+                formData.append('user_id',this.user_id);
+                formData.append('location_id',this.props.location_id);
+                axios.post(`${ADMIN_URL}/api/blog/create`, formData, {
+                    headers: {
+                    'Content-Type': 'multipart/form-data'
+                    }
+                }).then(res=>{
+                    console.log(res);
+                })
+
+            }
+        });
+        return false;
     }
   
     normFile = (e) => {
@@ -50,7 +77,7 @@ const TextArea = Input.TextArea;
                 label="Tiêu đề"
                 {...formItemLayout}
               >
-               {getFieldDecorator('title', {
+               {getFieldDecorator('blog_title', {
                     rules: [{ required: true, message: 'Vui lòng nhập tiêu đề' }],
                 })(
                     <Input placeholder="Tiêu đề" />
@@ -60,7 +87,7 @@ const TextArea = Input.TextArea;
                 label="Nội dung"
                 {...formItemLayout}
               >
-              {getFieldDecorator('content', {
+              {getFieldDecorator('detail', {
                     rules: [{ required: true, message: 'Vui lòng nhập nội dung' }],
                 })(
                     <TextArea rows={5} placeholder="Cảm nghĩ của bạn về nơi này" />
@@ -70,7 +97,7 @@ const TextArea = Input.TextArea;
                 {...formItemLayout}
                 label="Đánh giá"
                 >
-                {getFieldDecorator('rate', {
+                {getFieldDecorator('point', {
                     initialValue: 3.5,
                 })(
                     <Rate />

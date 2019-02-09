@@ -1,10 +1,13 @@
 import React,{Component} from 'react'
 import { Upload, Icon, Modal } from 'antd';
 import firebase from 'firebase';
-import {FIREBASE_CONFIG} from '../../config';
+import {FIREBASE_CONFIG,ADMIN_URL} from '../../config';
+import axios from 'axios';
+import reqwest from 'reqwest';
 console.log(FIREBASE_CONFIG);
 firebase.initializeApp(FIREBASE_CONFIG);
 const storage = firebase.storage();
+
 class UploadPhoto extends React.Component {
   state = {
     previewVisible: false,
@@ -21,18 +24,12 @@ class UploadPhoto extends React.Component {
     });
   }
 
-  handleUpload(){
+  getPhotos(){
     const { fileList } = this.state;
-    console.log(fileList);
-    /*var storageRef = storage.ref('posts');
-	var ref = storageRef.child('mountains.jpg');
-	ref.put(file).then(function(snapshot) {
-		console.log(snapshot);
-    });
-    */
-	return false;
+    return fileList;
   }
   uploadFile(file,fileList){
+      console.log(file);
       this.setState(state => ({
         fileList: [...state.fileList, file],
       }));

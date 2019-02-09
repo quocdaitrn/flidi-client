@@ -17,7 +17,8 @@
         "react-pure-render": "github:gaearon/react-pure-render",
         "react-router-dom": "^4.3.1",
         "react-scripts": "1.1.4",
-        "react-sticky": "^6.0.3"
+        "react-sticky": "^6.0.3",
+        "reqwest": "^2.0.5"
     },
     "scripts": {
         "start": "react-app-rewired start",
