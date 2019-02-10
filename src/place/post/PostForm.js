@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {
-    Form, Button, Icon, Rate,Input
+    Form, Button, Icon, Rate,Input, notification
   } from 'antd';
 import UploadPhoto from './UploadPhoto';
 import axios from 'axios';
@@ -9,8 +9,13 @@ import { getCurrentUser } from '../../util/APIUtils';
 const FormItem = Form.Item;
 const TextArea = Input.TextArea;
 
-
-  class PostForm extends Component {
+const openNotificationWithIcon = (type,description) => {
+    notification[type]({
+      message: 'Flidi App',
+      description: description,
+    });
+  };
+class PostForm extends Component {
     uploader = React.createRef();
     user_id = 1;
     constructor(props){
@@ -44,6 +49,14 @@ const TextArea = Input.TextArea;
                     }
                 }).then(res=>{
                     console.log(res);
+                    if(res.data.result){
+                        openNotificationWithIcon('success','Đăng bài thành công');
+                    }
+                    else{
+                        openNotificationWithIcon('error','Đã có lỗi xảy ra');
+                    }
+                }).catch(err=>{
+                    openNotificationWithIcon('error','Đã có lỗi xảy ra');
                 })
 
             }

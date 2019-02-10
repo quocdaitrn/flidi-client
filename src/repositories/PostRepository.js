@@ -1,14 +1,8 @@
+import axios from 'axios';
+import {ADMIN_URL} from '../config';
+
 var PlaceRepository = {};
-PlaceRepository.listByPost=(place_id)=>{
-    return [
-        {
-            user_name:'Jack Nguyen',
-            avatar:'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-            photo:'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-            title:'This is best place',
-            rating:5,
-            post_date:'2018-15-12 12:12',
-            content:"Tôi đã thuê xe ở đây trong vòng 3 ngày, địa chỉ thuê xe gần sân bay khá là tiện. xe chạy ổn và không gặp trục trặc gì trong quá trình thuê, bác chủ ở đây khá nhiệt tình và thoải mái."
-        }
-    ];
+PlaceRepository.getList=(location_id)=>{
+    return axios.get(`${ADMIN_URL}/api/blog/list/${location_id}`);
 }
+export default PlaceRepository;

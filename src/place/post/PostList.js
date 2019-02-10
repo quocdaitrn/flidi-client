@@ -1,9 +1,10 @@
 import React,{Component} from 'react'
 import PostRepository from '../../repositories/PostRepository';
 import { List, Avatar, Icon,Card, Carousel } from 'antd';
+import { getAvatarColor } from '../../util/Colors';
 import ItemPost from './Item';
-
-const listData = [];
+import './Post.css';
+/*const listData = [];
 listData.push({
 	href: '#',
 	title: `An Nguyen`,
@@ -20,7 +21,7 @@ listData.push({
 	avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
 	description: '2017-02-10 12:20',
 	content: 'Tòa nhà Bitexco gồm 68 tầng lầu và 3 tầng hầm, tổng chiều cao là 262m. Bên trong tòa nhà bao gồm nhiều khu như văn phòng, khu nhà hàng, khu trung tâm mua sắm, khu thực phẩm, rạp chiếu phim, khu vui chơi giải trí v.v..giá dịch vụ cũng khá đắt đỏ nhưng hợp lý và khách tham quan cần tuân thủ một số qui định của tòa nhà',
-});
+});*/
 
 const IconText = ({ type, text }) => (
 	<span>
@@ -34,39 +35,60 @@ class PostList extends Component{
 				super(props);
 		}
 		state = {
-				
-		}
+			listData:[]
+        }
+        componentDidMount(){
+            this.loadData();
+        }
 
 		loadData(){
-
+            PostRepository.getList(this.props.location_id)
+            .then(res=>{
+                console.log(res);
+                this.setState({
+                    listData:res.data.items
+                });
+            })
+            .catch(err=>{
+                console.log(err);
+            })
 		}
 
 		render(){
 				return  <List
 				itemLayout="vertical"
 				size="large"
-				dataSource={listData}
+				dataSource={this.state.listData}
 				renderItem={item => (
 					<List.Item
-					style={{ width: 550 }}
+					style={{ width: 550,marginTop:20 }}
 						key={item.title}
 						actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
 					>
-						<Card
+						<Card 
 							style={{ width: 550 }}
 							cover={
-								<Carousel dots={true}>
-										<img alt="example" src={item.image} />
+								<Carousel autoplay style={{height:600}}>
+                                    {
+                                        item.image.map(function(img_src){
+                                            return <img src={img_src} />
+                                        })
+                                    }
 								</Carousel>
 							}
 						>
 						</Card>
 						<List.Item.Meta
-							avatar={<Avatar src={item.avatar} />}
-							title={<a href={item.href}>{item.title}</a>}
-							description={item.description}
+							avatar={<Avatar size={'large'} style={{ backgroundColor: getAvatarColor(item.user.first_name[0].toUpperCase()) }}>
+                            {item.user.first_name[0].toUpperCase()}
+                        </Avatar>}
+							title={<a href={item.href}>{item.user.first_name + ' '+item.user.last_name}</a>}
+							description={item.created_at_str}
 						/>
-						{item.content}
+						<div style={{marginTop:'10px'}}>
+                            <h6>{item.blog_title}</h6>
+                            <p>{item.detail}</p>
+                        </div>
 					</List.Item>
 				)}
 			/>
