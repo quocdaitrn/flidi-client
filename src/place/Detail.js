@@ -26,7 +26,7 @@ const renderTabBar = (props, DefaultTabBar) => (
 );
 
 class Detail extends Component{
-
+    postlist = React.createRef();
     constructor(props){
         super(props);
         console.log(this.props.match.params);
@@ -111,7 +111,7 @@ class Detail extends Component{
                         width={650}
                         onCancel={this.hidePostForm.bind(this)}
                     >
-                        <PostForm location_id={this.props.match.params.id}></PostForm>
+                        <PostForm obj={this} location_id={this.props.match.params.id}></PostForm>
                     </Modal>
                 <Card
                     height={350}
@@ -139,11 +139,11 @@ class Detail extends Component{
                             <p>{this.state.item.detail}</p>
                             </TabPane>
                             <TabPane tab={<span><Icon type="picture" />Hình ảnh</span>} key="2">
-                                <PhotoList></PhotoList>
+                                <PhotoList place_id={this.props.match.params.id}></PhotoList>
                             </TabPane>
                             <TabPane tab={<span><Icon type="form" />Bài viết</span>} key="3">
                                 <Button onClick={this.showPostForm.bind(this)} type="primary"><Icon type="form" /> Viết bài</Button>
-                                <PostList location_id = {this.props.match.params.id}></PostList>
+                                <PostList ref={this.postlist} location_id = {this.props.match.params.id}></PostList>
                             </TabPane>
                             <TabPane tab={<span><Icon type="environment" />Bản đồ</span>} key="4">
                             <MyMapComponent

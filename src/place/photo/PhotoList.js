@@ -3,6 +3,7 @@ import PostRepository from '../../repositories/PostRepository';
 import { render } from 'react-dom';
 import Gallery from 'react-photo-gallery';
 import Lightbox from 'react-images';
+import PlaceRepository from '../../repositories/PlaceRepository';
 
 const photos = [
     { src: 'https://mytourcdn.com/upload_images/Image/Location/29_9_2015/Du-lich-toa-nha-bitexco-sai-gon-mytour-1.jpg', width: 4, height: 3 },
@@ -19,12 +20,33 @@ const photos = [
 class PhotoList extends Component{
     constructor() {
         super();
-        this.state = { currentImage: 0 };
+        this.state = { currentImage: 0 ,photos:[]};
         this.closeLightbox = this.closeLightbox.bind(this);
         this.openLightbox = this.openLightbox.bind(this);
         this.gotoNext = this.gotoNext.bind(this);
         this.gotoPrevious = this.gotoPrevious.bind(this);
       }
+      
+
+      componentWillMount(){
+        PlaceRepository.getPhotos(this.props.place_id)
+        .then(res=>{
+            var cur = this;
+            var photos=[];
+            res.data.items.map(function(item){
+                photos.push({
+                    src:item
+                })
+            })
+            this.setState({
+                photos:photos
+            });
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+      }
+
       openLightbox(event, obj) {
         this.setState({
           currentImage: obj.index,
@@ -50,8 +72,8 @@ class PhotoList extends Component{
       render() {
         return (
           <div>
-            <Gallery photos={photos} onClick={this.openLightbox} />
-            <Lightbox images={photos}
+            <Gallery photos={this.state.photos} onClick={this.openLightbox} />
+            <Lightbox images={this.state.photos}
                 backdropClosesModal={true}
                 showCloseButton={false}
                 onClose={this.closeLightbox}

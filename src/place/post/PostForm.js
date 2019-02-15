@@ -51,6 +51,8 @@ class PostForm extends Component {
                     console.log(res);
                     if(res.data.result){
                         openNotificationWithIcon('success','Đăng bài thành công');
+                        this.props.obj.hidePostForm();
+                        this.props.obj.postlist.current.loadData();
                     }
                     else{
                         openNotificationWithIcon('error','Đã có lỗi xảy ra');

@@ -1,8 +1,9 @@
 import React,{Component} from 'react'
 import PostRepository from '../../repositories/PostRepository';
-import { List, Avatar, Icon,Card, Carousel } from 'antd';
+import { List, Avatar, Icon,Card, Carousel,Modal } from 'antd';
 import { getAvatarColor } from '../../util/Colors';
 import ItemPost from './Item';
+import PostDetail from './PostDetail';
 import './Post.css';
 /*const listData = [];
 listData.push({
@@ -35,7 +36,10 @@ class PostList extends Component{
 				super(props);
 		}
 		state = {
-			listData:[]
+            listData:[],
+            visiblePost:false,
+            item:{},
+            title_post:''
         }
         componentDidMount(){
             this.loadData();
@@ -54,44 +58,76 @@ class PostList extends Component{
             })
 		}
 
+        showPost(item){
+            this.setState({
+                visiblePost:true,
+                item:item,
+                title_post:item.blog_title
+            })
+        }
+    
+        hidePost(){
+            this.setState({
+                visiblePost:false
+            })
+        }
+        
 		render(){
-				return  <List
-				itemLayout="vertical"
-				size="large"
-				dataSource={this.state.listData}
-				renderItem={item => (
-					<List.Item
-					style={{ width: 550,marginTop:20 }}
-						key={item.title}
-						actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-					>
-						<Card 
-							style={{ width: 550 }}
-							cover={
-								<Carousel autoplay style={{height:600}}>
-                                    {
-                                        item.image.map(function(img_src){
-                                            return <img src={img_src} />
-                                        })
-                                    }
-								</Carousel>
-							}
-						>
-						</Card>
-						<List.Item.Meta
-							avatar={<Avatar size={'large'} style={{ backgroundColor: getAvatarColor(item.user.first_name[0].toUpperCase()) }}>
-                            {item.user.first_name[0].toUpperCase()}
-                        </Avatar>}
-							title={<a href={item.href}>{item.user.first_name + ' '+item.user.last_name}</a>}
-							description={item.created_at_str}
-						/>
-						<div style={{marginTop:'10px'}}>
-                            <h6>{item.blog_title}</h6>
-                            <p>{item.detail}</p>
-                        </div>
-					</List.Item>
-				)}
-			/>
-		}
+            console.log(this.state.title_post);
+            return  <div>
+                {
+                <Modal
+                    title={this.state.title_post}
+                    visible={this.state.visiblePost}
+                    footer={null}
+                    width={650}
+                    onCancel={this.hidePost.bind(this)}
+                >
+                    <PostDetail item={this.state.item}></PostDetail>
+                </Modal>
+                }
+                <List
+            itemLayout="vertical"
+            size="large"
+            dataSource={this.state.listData}
+            renderItem={item => (
+                <List.Item
+                    onClick={this.showPost.bind(this,item)}
+                    style={{ width: 550,marginTop:40 ,cursor:'pointer'}}
+                    key={item.title}
+                    actions={[
+                        <IconText type="like-o" text={item.likes.length} />, 
+                        <IconText type="message" text={item.comments.length} />
+                    ]}
+                >
+                    <Card 
+                        style={{ width: 550 }}
+                        cover={
+                            <Carousel autoplay style={{height:600}}>
+                                {
+                                    item.image.map(function(img_src){
+                                        return <img src={img_src} />
+                                    })
+                                }
+                            </Carousel>
+                        }
+                    >
+                    </Card>
+                    <List.Item.Meta
+                        avatar={<Avatar size={'large'} style={{ backgroundColor: getAvatarColor(item.user.first_name[0].toUpperCase()) }}>
+                        {item.user.first_name[0].toUpperCase()}
+                    </Avatar>}
+                        title={<a href={item.href}>{item.user.first_name + ' '+item.user.last_name}</a>}
+                        description={item.created_at_str}
+                    />
+                    <div style={{marginTop:'10px'}}>
+                        <h6>{item.blog_title}</h6>
+                        <p>{item.detail}</p>
+                    </div>
+                </List.Item>
+            )}
+        />
+        </div>
+    }
 }
 export default PostList;
