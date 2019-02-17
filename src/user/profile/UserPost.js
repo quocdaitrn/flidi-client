@@ -6,11 +6,12 @@ import { formatDate } from '../../util/Helpers';
 import LoadingIndicator from '../../common/LoadingIndicator';
 import './Profile.css';
 import NotFound from '../../common/NotFound';
+import ListPost from '../../place/post/PostList';
 import ServerError from '../../common/ServerError';
 import ChangePasswordForm from './ChangePassword';
 import UpdateInfoForm from './UpdateInfo';
 
-class Profile extends Component {
+class UserPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -59,32 +60,12 @@ class Profile extends Component {
         }
     }
 
-    showModal = () => {
-        this.setState({ visible: true });
-    }
-    
-    handleCancel = () => {
-        this.setState({ visible: false });
-    }
-
-    showModalInfo = () => {
-        this.setState({ visibleInfo: true });
-    }
-    
-    handleCancelInfo = () => {
-        this.setState({ visibleInfo: false });
-    }
-    
-    saveFormRef = (formRef) => {
-        this.formRef = formRef;
-    }
-
     render() {
         if (this.state.isLoading) {
             return <LoadingIndicator />;
         }
 
-        if (this.state.notFound||!this.props.isAuthenticated) {
+        if (this.state.notFound) {
             return <NotFound />;
         }
 
@@ -94,25 +75,6 @@ class Profile extends Component {
 
         return (
             <div className="profile">
-                {
-                    this.state.user!=null?
-                    <div>
-                        <ChangePasswordForm
-                            user={this.state.user}
-                            wrappedComponentRef={this.saveFormRef}
-                            visible={this.state.visible}
-                            onCancel={this.handleCancel}
-                            />
-                        <UpdateInfoForm
-                            user={this.state.user}
-                            wrappedComponentRef={this.saveFormRef}
-                            visible={this.state.visibleInfo}
-                            onCancel={this.handleCancelInfo}
-                            />
-                            }
-                    </div>
-                    :<div></div>
-                }
                 {
                     this.state.user ? (
                         <div className="user-profile">
@@ -128,20 +90,17 @@ class Profile extends Component {
                                     <div className="user-joined">
                                         Joined {formatDate(this.state.user.joinedAt)}
                                     </div>
-                                    <div style={{marginTop:'10px'}}>
-                                        <Button style={{textAlign:'left'}} onClick={this.showModalInfo.bind(this)} type="default" block={true} icon="info-circle">Cập nhật thông tin</Button>
-                                    </div>
-                                    <div style={{marginTop:'10px'}}>
-                                        <Button style={{textAlign:'left'}} onClick={this.showModal.bind(this)} type="default" block={true} icon="lock">Đổi mật khẩu</Button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
                     ) : null
                 }
+                <div style={{maxWidth:'600px',marginLeft:'auto',marginRight:'auto'}}>
+                { this.state.user?<ListPost is_user_page={true} user_id={this.state.user.id}></ListPost>:null}
+                </div>
             </div>
         );
     }
 }
 
-export default Profile;
+export default UserPost;

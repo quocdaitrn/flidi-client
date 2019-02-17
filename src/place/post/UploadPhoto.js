@@ -12,9 +12,30 @@ class UploadPhoto extends React.Component {
   state = {
     previewVisible: false,
     previewImage: '',
-    fileList: [],
+    fileList: []
   };
 
+  componentWillMount(){
+    const fileList= this.props.fileList?this.props.fileList:[];
+    var cur = this;
+    fileList.forEach((file) => {
+        fetch(file.url)
+            .then(res => res.blob()) // Gets the response and returns it as a blob
+            .then(blob => {
+                // Here's where you get access to the blob
+                // And you can use it for whatever you want
+                // Like calling ref().put(blob)
+
+                // Here, I use it to make an image appear on the page
+                console.log(blob);
+                let objectURL = URL.createObjectURL(blob);
+                var image = new File([blob], file.url.split('/').pop(),{type: blob.type, lastModified: Date.now()})
+                console.log(image);
+                image.uid = file.url.split('/').pop();
+                cur.uploadFile(image);
+            });
+    });
+  }
   handleCancel = () => this.setState({ previewVisible: false })
 
   handlePreview = (file) => {

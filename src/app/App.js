@@ -12,6 +12,7 @@ import { ACCESS_TOKEN } from '../constants';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
 import Profile from '../user/profile/Profile';
+import UserPost from '../user/profile/UserPost';
 import AppHeader from '../common/AppHeader';
 import AppFooter from '../common/AppFooter';
 import Maps from '../maps/Maps';
@@ -164,6 +165,9 @@ class App extends Component {
                                 render={(props) => <Detail {...props} />}>
                             </Route>
                             <Route path="/signup" component={Signup}></Route>
+                            <Route path="/users/:username/posts"
+                                render={(props) => <UserPost  currentUser={this.state.currentUser} {...props} />}>
+                            </Route>
                             <Route path="/users/:username"
                                 render={(props) => <Profile isAuthenticated={this.state.isAuthenticated} currentUser={this.state.currentUser} {...props} />}>
                             </Route>

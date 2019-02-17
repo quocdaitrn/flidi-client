@@ -10,8 +10,13 @@ import { getCurrentUser } from '../../util/APIUtils';
 import { getAvatarColor } from '../../util/Colors';
 import CommentPost from './CommentPost';
 import PostRepository from '../../repositories/PostRepository';
+import {
+    Link,
+    withRouter
+} from 'react-router-dom';
 const FormItem = Form.Item;
 const TextArea = Input.TextArea;
+
 const IconText = ({ type, text }) => (
 	<span>
 		<Icon type={type} style={{ marginRight: 8 }} />
@@ -120,13 +125,19 @@ class PostDetail extends Component {
                         }
                     >
                     </Card>
-                    <List.Item.Meta
-                        avatar={<Avatar size={'large'} style={{ backgroundColor: getAvatarColor(item.user.first_name[0].toUpperCase()) }}>
-                        {item.user.first_name[0].toUpperCase()}
-                    </Avatar>}
-                        title={<a href={item.href}>{item.user.first_name + ' '+item.user.last_name}</a>}
-                        description={item.created_at_str}
-                    />
+                        <List.Item.Meta
+                            avatar={<Link to={`/users/${item.user.username}/posts`}>
+                            <Avatar size={'large'} style={{ backgroundColor: getAvatarColor(item.user.first_name[0].toUpperCase()) }}>
+                            {item.user.first_name[0].toUpperCase()}
+                            </Avatar>
+                        </Link>}
+                            title={
+                                <Link to={`/users/${item.user.username}/posts`}>
+                                    {item.user.first_name + ' '+item.user.last_name}
+                                </Link>
+                            }
+                            description={item.created_at_str}
+                        />
                     <div style={{marginTop:'10px'}}>
                         <p>{item.detail}</p>
                     </div>

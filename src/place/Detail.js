@@ -143,7 +143,7 @@ class Detail extends Component{
                             </TabPane>
                             <TabPane tab={<span><Icon type="form" />Bài viết</span>} key="3">
                                 <Button onClick={this.showPostForm.bind(this)} type="primary"><Icon type="form" /> Viết bài</Button>
-                                <PostList ref={this.postlist} location_id = {this.props.match.params.id}></PostList>
+                                <PostList place={this.state.item} ref={this.postlist} location_id = {this.props.match.params.id}></PostList>
                             </TabPane>
                             <TabPane tab={<span><Icon type="environment" />Bản đồ</span>} key="4">
                             <MyMapComponent

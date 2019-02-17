@@ -1,4 +1,5 @@
-export const API_BASE_URL = 'http://flidi.us-west-2.elasticbeanstalk.com/api';
+//export const API_BASE_URL = 'http://flidi.us-west-2.elasticbeanstalk.com/api';
+export const API_BASE_URL = 'http://172.16.2.19:8080/api';
 export const ACCESS_TOKEN = 'accessToken';
 
 export const NAME_MIN_LENGTH = 2;

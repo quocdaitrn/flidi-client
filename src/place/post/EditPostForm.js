@@ -17,7 +17,6 @@ const openNotificationWithIcon = (type,description) => {
   };
 class PostForm extends Component {
     uploader = React.createRef();
-    user_id = 1;
     constructor(props){
         console.log(props);
         super(props);
@@ -29,6 +28,14 @@ class PostForm extends Component {
         });
     }
 
+    componentDidMount(){
+        this.props.form.setFieldsValue({
+            blog_title: this.props.item.blog_title,
+            detail: this.props.item.detail,
+            rating: this.props.item.rating
+        });
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const photos = this.uploader.current.getPhotos();
@@ -36,14 +43,12 @@ class PostForm extends Component {
             if (!err) {
                 const formData = new FormData();
                 photos.forEach((file) => {
-                    formData.append('files[]', file.originFileObj);
+                    formData.append('files[]', file.originFileObj?file.originFileObj:file);
                 });
                 for(var key in values){
                     formData.append(key,values[key]);
                 }
-                formData.append('user_id',this.user_id);
-                formData.append('location_id',this.props.location_id);
-                axios.post(`${ADMIN_URL}/api/blog/create`, formData, {
+                axios.post(`${ADMIN_URL}/api/blog/update/${this.props.item.blog_id}`, formData, {
                     headers: {
                     'Content-Type': 'multipart/form-data'
                     }
@@ -51,8 +56,7 @@ class PostForm extends Component {
                     console.log(res);
                     if(res.data.result){
                         openNotificationWithIcon('success','Đăng bài thành công');
-                        this.props.obj.hidePostForm();
-                        this.props.obj.postlist.current.loadData();
+                    
                     }
                     else{
                         openNotificationWithIcon('error','Đã có lỗi xảy ra');
@@ -119,10 +123,10 @@ class PostForm extends Component {
                 )}
                 </FormItem>
                 <Form>
-                    <UploadPhoto ref={this.uploader} action={'//jsonplaceholder.typicode.com/posts/'}></UploadPhoto>
+                    <UploadPhoto fileList={this.props.fileList} ref={this.uploader} action={'//jsonplaceholder.typicode.com/posts/'}></UploadPhoto>
                 </Form>
               <FormItem style={{marginTop:'20px'}} {...buttonItemLayout}>
-                <Button type="primary"  htmlType="submit"><Icon type="form" /> Đăng bài</Button>
+                <Button type="primary"  htmlType="submit"><Icon type="form" /> Cập nhật bài viết</Button>
               </FormItem>
             </Form>
           </div>
