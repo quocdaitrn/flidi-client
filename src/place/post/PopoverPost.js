@@ -56,7 +56,7 @@ class PopoverPost extends Component{
     }
     render(){
         const item = this.props.item;
-          var fileList= [];
+        var fileList= [];
         item.image.map(function(img_src){
             fileList.push({
                 uid: '-1',
@@ -65,8 +65,9 @@ class PopoverPost extends Component{
                 url: img_src,
               })
         });
+        fileList.reverse();
         return (
-        <div>
+        <div style={{height:'22px'}}>
              <Modal
                 title="Cập nhật bài viết"
                 visible={this.state.visiblePostForm}
@@ -74,7 +75,7 @@ class PopoverPost extends Component{
                 width={650}
                 onCancel={this.hidePostForm.bind(this)}
             >
-                <EditPostForm fileList={fileList} obj={this} item={item}></EditPostForm>
+                <EditPostForm onCancel={this.hidePostForm.bind(this)} postlist={this.props.postlist} fileList={fileList} obj={this} item={item}></EditPostForm>
             </Modal>
        
        <Dropdown trigger={['click']} overlay={

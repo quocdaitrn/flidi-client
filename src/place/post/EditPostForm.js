@@ -50,13 +50,14 @@ class PostForm extends Component {
                 }
                 axios.post(`${ADMIN_URL}/api/blog/update/${this.props.item.blog_id}`, formData, {
                     headers: {
-                    'Content-Type': 'multipart/form-data'
+                        'Content-Type': 'multipart/form-data'
                     }
                 }).then(res=>{
                     console.log(res);
                     if(res.data.result){
-                        openNotificationWithIcon('success','Đăng bài thành công');
-                    
+                        openNotificationWithIcon('success','Cập nhật bài viết thành công');
+                        this.props.postlist.loadData();
+                        this.props.onCancel();
                     }
                     else{
                         openNotificationWithIcon('error','Đã có lỗi xảy ra');

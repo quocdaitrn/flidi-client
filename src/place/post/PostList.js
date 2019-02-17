@@ -44,6 +44,9 @@ class PostList extends Component{
                 .then(response => {
                     console.log(response);
                     this.user_id = response.id;
+                    this.setState({
+                        user_id:response.id
+                    })
                 }).catch(error => {
             });
         }
@@ -52,6 +55,7 @@ class PostList extends Component{
             listData:[],
             visiblePost:false,
             item:{},
+            user_id:null,
             title_post:''
         }
         componentDidMount(){
@@ -152,7 +156,7 @@ class PostList extends Component{
                                 <Link to={`/users/${item.user.username}/posts`}>
                                 {item.user.first_name + ' '+item.user.last_name}
                                 </Link>
-                                {this.user_id==item.user_id?<PopoverPost afterDeleted={this.loadData.bind(this)} item={item}></PopoverPost>:null}
+                                {this.state.user_id==item.user_id?<PopoverPost postlist={this} afterDeleted={this.loadData.bind(this)} item={item}></PopoverPost>:null}
                             </div>
                             
                             

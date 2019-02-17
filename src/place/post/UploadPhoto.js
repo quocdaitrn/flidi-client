@@ -32,6 +32,8 @@ class UploadPhoto extends React.Component {
                 var image = new File([blob], file.url.split('/').pop(),{type: blob.type, lastModified: Date.now()})
                 console.log(image);
                 image.uid = file.url.split('/').pop();
+                image.url = file.url;
+                image.src = file.url;
                 cur.uploadFile(image);
             });
     });
