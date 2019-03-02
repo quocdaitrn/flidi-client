@@ -10,6 +10,7 @@ import { withRouter } from 'react-router-dom';
 import SidebarItem from '../maps/SidebarItem';
 import { GoogleMap,withGoogleMap,withScriptjs} from "react-google-maps"
 import {GOOGLE_MAPS_API_KEY,DEFAULT_PROVINCE} from '../constants/index';
+import {ADMIN_URL} from '../config';
 const { Meta } = Card;
 const {
     Sider
@@ -116,7 +117,7 @@ class Detail extends Component{
                 <Card
                     height={350}
                     style={{overflow:'hidden',height:'450px'}}
-                    cover={<img style={{maxHeight:'340px'}} alt="example" src={this.state.item.image} />}
+                    cover={<img style={{maxHeight:'340px'}} alt="example" src={ADMIN_URL+'/storage/'+this.state.item.cover} />}
                 >
                 <Meta
                     title={<h5>{this.state.item.name}</h5>}

@@ -6,4 +6,4 @@ export const FIREBASE_CONFIG = {
     storageBucket: "api-project-814569024038.appspot.com",
     messagingSenderId: "814569024038"
 }
-export const ADMIN_URL = 'http://admin.flidi.local';
+export const ADMIN_URL = 'http://ap.chsci.org';
