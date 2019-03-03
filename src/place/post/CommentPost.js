@@ -59,9 +59,15 @@ import {
     }
 
     componentDidMount(){
+        this.setState({
+            comments:[]
+        })
         this.loadData();
     }
     componentWillReceiveProps(){
+        this.setState({
+            comments:[]
+        })
         this.loadData();
     }
   

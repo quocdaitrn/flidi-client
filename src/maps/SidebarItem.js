@@ -7,7 +7,9 @@ import {
 	Link,
 	withRouter
 } from 'react-router-dom';
+import {ADMIN_URL} from '../config';
   const { Meta } = Card;
+
   class SidebarItem extends React.Component {
 	state = {
 	  loading: false,
@@ -23,7 +25,8 @@ import {
   
 	render() {
 	  const { loading } = this.state;
-	  var item = this.props.data;
+      var item = this.props.data;
+      console.log(item);
 	  return (
 		<div>
 		  <Card
@@ -47,9 +50,9 @@ import {
 		>
 		  <Skeleton loading={loading} avatar active>
 			<Meta
-			  avatar={<Avatar size={'large'}  shape={'square'} src={item.image} />}
+			  avatar={<Avatar size={'large'}  shape={'square'} src={ADMIN_URL+'/storage/'+item.cover} />}
 			  title={
-					<Link to={`/place/${item.province.id}/${item.id}`}>{item.name}</Link>
+                    this.props.isFrom?<a href={`/place/${item.province.id}/${item.id}`}>{item.name}</a>:<Link to={`/place/${item.province.id}/${item.id}`}>{item.name}</Link>
 				}
 			  description={
 					<div>

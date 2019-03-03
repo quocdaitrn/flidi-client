@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Tabs,Layout,Card,Icon,Button,Modal,Menu} from 'antd';
+import { Tabs,Layout,Card,Icon,Button,Modal,Menu,Rate} from 'antd';
 import { StickyContainer, Sticky } from 'react-sticky';
 import PhotoList from './photo/PhotoList';
 import PostList from './post/PostList';
@@ -121,7 +121,12 @@ class Detail extends Component{
                 >
                 <Meta
                     title={<h5>{this.state.item.name}</h5>}
-                    description={this.state.item.address}
+                    description={
+                        <div>
+                            <Rate disabled allowHalf defaultValue={item.rating} />
+                            <div>{this.state.item.address}</div>
+                        </div>
+                    }
                 />
                 </Card>
                     <StickyContainer>
@@ -131,7 +136,7 @@ class Detail extends Component{
                             </Card>
                             <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
                              {this.state.items.map(function(item,key){
-                                return <SidebarItem width={300} data={item} key={key}></SidebarItem>
+                                return <SidebarItem isFrom={'detail'} width={300} data={item} key={key}></SidebarItem>
                             })}
                     </Menu>
                         </Sider>
