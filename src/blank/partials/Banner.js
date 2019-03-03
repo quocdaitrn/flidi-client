@@ -1,9 +1,33 @@
-import React from 'react';
+import React,{Component} from 'react';
 import SearchBox from '../../common/SearchBox';
+import Settings from '../../repositories/Settings';
+export default class  Banner extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            background:null
+        }
+    }
 
-export default function Banner() {
-  return (
-    <section className="slider home-banner d-flex align-items-center">
+    componentDidMount(){
+        Settings.get().then((res)=>{
+            this.setState({
+                background:res.data.background
+            })
+        })
+    }
+
+  render(){
+    var style = {
+        backgroundSize:'cover',
+    };
+    if(this.state.background){
+        style = {
+            backgroundSize:'cover',
+            backgroundImage:`url(${this.state.background})`
+        }
+    }
+    return <section style={style} className="slider home-banner d-flex align-items-center">
         <div className="container">
             <div className="row d-flex justify-content-center">
                 <div className="col-md-12">
@@ -28,5 +52,5 @@ export default function Banner() {
             </div>
         </div>
     </section>
-  );
+  }
 }

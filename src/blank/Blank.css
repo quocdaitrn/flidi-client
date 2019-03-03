@@ -1,8 +1,12 @@
 .home-banner{
     background-size: cover;
     min-height: 600px;
-    background: url('/images/slider.jpg');
+    /*background: url('/images/slider.jpg') no-repeat center center fixed;*/
     padding-bottom:50px;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 .slider-title_box {
     text-align: center;
