@@ -59,16 +59,12 @@ import {
     }
 
     componentDidMount(){
-        this.setState({
-            comments:[]
-        })
         this.loadData();
     }
-    componentWillReceiveProps(){
-        this.setState({
-            comments:[]
-        })
-        this.loadData();
+    componentWillReceiveProps(nextProps){
+        if(nextProps.item.blog_id!=this.props.item.blog_id){
+            this.loadData(nextProps.item.blog_id);
+        }
     }
   
     handleSubmit = () => {
@@ -104,8 +100,11 @@ import {
         })
     }
   
-    loadData(){
-        PostRepository.getComments(this.props.item.blog_id)
+    loadData(blog_id=null){
+        if(!blog_id){
+            blog_id = this.props.item.blog_id;
+        }
+        PostRepository.getComments(blog_id)
         .then(res=>{
             console.log(res);
             this.setState({

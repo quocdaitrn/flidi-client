@@ -49,8 +49,18 @@ class PostDetail extends Component {
     componentWillMount(){
         this.loadLikes();
     }
-    loadLikes(){
-        PostRepository.getLikes(this.props.item.blog_id)
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.item.blog_id!=this.props.item.blog_id){
+            this.loadLikes(nextProps.item.blog_id);
+        }
+    }
+
+    loadLikes(blog_id){
+        if(!blog_id){
+            blog_id = this.props.item.blog_id;
+        }
+        PostRepository.getLikes(blog_id)
         .then(res=>{
             var cur = this;
             res.data.items.map(function(item){
