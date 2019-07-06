@@ -110,57 +110,55 @@ class Detail extends Component{
                         visible={this.state.visiblePostForm}
                         footer={null}
                         width={650}
-                        onCancel={this.hidePostForm.bind(this)}
-                    >
+                        onCancel={this.hidePostForm.bind(this)}>
                         <PostForm obj={this} location_id={this.props.match.params.id}></PostForm>
                     </Modal>
-                <Card
-                    height={350}
-                    style={{overflow:'hidden',height:'450px'}}
-                    cover={<img style={{maxHeight:'340px'}} alt="example" src={ADMIN_URL+'/storage/'+this.state.item.cover} />}
-                >
-                <Meta
-                    title={<h5>{this.state.item.name}</h5>}
-                    description={
-                        <div>
-                            <Rate disabled allowHalf defaultValue={item.rating} />
-                            <div>{this.state.item.address}</div>
-                        </div>
-                    }
-                />
-                </Card>
+                    <Card
+                        height={350}
+                        style={{overflow:'hidden',height:'450px'}}
+                        cover={<img style={{maxHeight:'340px'}} alt="example" src={ADMIN_URL+'/storage/'+this.state.item.cover} />}>
+                        <Meta
+                            title={<h5>{this.state.item.name}</h5>}
+                            description={
+                                <div>
+                                    <Rate disabled allowHalf defaultValue={item.rating} />
+                                    <div>{this.state.item.address}</div>
+                                </div>
+                            }
+                        />
+                    </Card>
                     <StickyContainer>
                         <Layout>
-                        <Sider width={300}>
-                            <Card title="Địa điểm lân cận" bordered={false} style={{ width: 300 }}>
-                            </Card>
-                            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-                             {this.state.items.map(function(item,key){
-                                return <SidebarItem isFrom={'detail'} width={300} data={item} key={key}></SidebarItem>
-                            })}
-                    </Menu>
-                        </Sider>
-                        <Tabs style={{marginLeft:30}} defaultActiveKey="1" renderTabBar={renderTabBar}>
-                            <TabPane tab={<span><Icon type="info-circle" />Giới thiệu</span>} key="1" style={{ height: 200 }}>
-                            <p>{this.state.item.detail}</p>
-                            </TabPane>
-                            <TabPane tab={<span><Icon type="picture" />Hình ảnh</span>} key="2">
-                                <PhotoList place_id={this.props.match.params.id}></PhotoList>
-                            </TabPane>
-                            <TabPane tab={<span><Icon type="form" />Bài viết</span>} key="3">
-                                <Button onClick={this.showPostForm.bind(this)} type="primary"><Icon type="form" /> Viết bài</Button>
-                                <PostList place={this.state.item} ref={this.postlist} location_id = {this.props.match.params.id}></PostList>
-                            </TabPane>
-                            <TabPane tab={<span><Icon type="environment" />Bản đồ</span>} key="4">
-                            <MyMapComponent
-                                isMarkerShown
-                                googleMapURL={"https://maps.googleapis.com/maps/api/js?key="+GOOGLE_MAPS_API_KEY+"&v=3.exp&libraries=geometry,drawing,places"}
-                                loadingElement={<div style={{ height: `100%` }} />}
-                                containerElement={<div style={{ height: `800px` }} />}
-                                mapElement={<div style={{ height: `100%` }} />}
-                            />
-                            </TabPane>
-                        </Tabs>
+                            <Sider width={300}>
+                                <Card title="Địa điểm lân cận" bordered={false} style={{ width: 300 }}>
+                                </Card>
+                                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                                    {this.state.items.map(function(item,key){
+                                        return <SidebarItem isFrom={'detail'} width={300} data={item} key={key}></SidebarItem>
+                                    })}
+                                </Menu>
+                            </Sider>
+                            <Tabs style={{marginLeft:30}} defaultActiveKey="1" renderTabBar={renderTabBar}>
+                                <TabPane tab={<span><Icon type="info-circle" />Giới thiệu</span>} key="1" style={{ height: 200 }}>
+                                <p>{this.state.item.detail}</p>
+                                </TabPane>
+                                <TabPane tab={<span><Icon type="picture" />Hình ảnh</span>} key="2">
+                                    <PhotoList place_id={this.props.match.params.id}></PhotoList>
+                                </TabPane>
+                                <TabPane tab={<span><Icon type="form" />Bài viết</span>} key="3">
+                                    <Button onClick={this.showPostForm.bind(this)} type="primary"><Icon type="form" /> Viết bài</Button>
+                                    <PostList place={this.state.item} ref={this.postlist} location_id = {this.props.match.params.id}></PostList>
+                                </TabPane>
+                                <TabPane tab={<span><Icon type="environment" />Bản đồ</span>} key="4">
+                                <MyMapComponent
+                                    isMarkerShown
+                                    googleMapURL={"https://maps.googleapis.com/maps/api/js?key="+GOOGLE_MAPS_API_KEY+"&v=3.exp&libraries=geometry,drawing,places"}
+                                    loadingElement={<div style={{ height: `100%` }} />}
+                                    containerElement={<div style={{ height: `800px` }} />}
+                                    mapElement={<div style={{ height: `100%` }} />}
+                                />
+                                </TabPane>
+                            </Tabs>
                         </Layout>
                     </StickyContainer>
                 </Layout>
